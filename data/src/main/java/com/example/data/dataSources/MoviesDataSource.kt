@@ -10,43 +10,32 @@ import java.io.IOException
 
 class MoviesDataSource (private  val movieDbService: MovieDbService) {
 
-   suspend fun getTopRatedMovies() : ApiResponse<Movie>?{
-       val call = movieDbService.loadTopRatedMovies("en-US",3).await()
-     return  safeApiCall(call = {call}, errorMessage = "Error occured")
-   }
-
-   suspend fun upComingMovies():ApiResponse<Movie>?{
-       val call = movieDbService.loadUpCommingMovies("en-US",3).await()
-       return safeApiCall(call = {call},errorMessage = "Error occured")
-   }
-
-    suspend fun getNowPlayingMovies():ApiResponse<Movie>?{
-       val call = movieDbService.loadNowPlayingMovies("en-US",3).await()
-       return safeApiCall(call = {call},errorMessage = "Error occured")
-   }
 
 
 
-    private suspend fun <T: Any> safeApiCall(call: suspend ()-> Response<T>,errorMessage : String): T?{
-        val result : Result<T> = safeApiResult(call,errorMessage)
-        var data : T? = null
+     suspend fun getMovies(list : String  , language: String, page: Int) = safeApiCall(
+         call = {loadMovies(list,language,page)}
+         ,errorMessage= "Error occured"
+     )
 
-        when (result){
-            is Result.Success ->
-                data = result.data
-            is Result.Error ->
-                Log.d("Movie dataSource ", "$errorMessage")
 
-        }
-        return  data
-    }
-
-    private suspend fun <T: Any> safeApiResult(call : suspend () -> Response<T>,errorMessage : String): Result<T>{
-        val response =  call.invoke()
+    private  suspend fun loadMovies (list : String ,language : String , page: Int): Result<ApiResponse<Movie>> {
+      val response =  movieDbService.loadMovies(list,language, page).await()
         if(response.isSuccessful){
             return Result.Success(response.body()!!)
         }
 
-        return Result.Error(IOException("Error Occurred during getting safe Api result, ERROR - $errorMessage"))
+        return  Result.Error(IOException("Error occurred during fetching movies!"))
+    }
 
-}}
+    private suspend fun <T : Any> safeApiCall(
+        call: suspend () -> Result<T>,
+        errorMessage: String
+    ): Result<T> = try {
+        call.invoke()
+    } catch (e: Exception) {
+        Result.Error(IOException(errorMessage, e))
+
+
+    }
+}

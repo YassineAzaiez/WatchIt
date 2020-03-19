@@ -32,25 +32,15 @@ interface MovieDbService {
         @Query("page") page: Int
     ): Deferred<Response<ApiResponse<Review>>>
 
-    @GET("movie/latest")
-    fun loadLatestMovies (@Query("page") page : Int,
-        @Query("language") language : String)
+
+
+    @GET("movie/{list}")
+    fun loadMovies (@Path("list")list : String ,
+                    @Query("language") language : String,
+                    @Query("page") page : Int)
             : Deferred<Response<ApiResponse<Movie>>>
 
-    @GET("movie/top_rated")
-    fun loadTopRatedMovies (@Query("language") language : String,
-                            @Query("page") page : Int)
-            : Deferred<Response<ApiResponse<Movie>>>
 
-    @GET("movie/now_playing")
-    fun loadNowPlayingMovies (@Query("language") language : String,
-                           @Query("page") page : Int)
-            :Deferred<Response<ApiResponse<Movie>>>
-
-    @GET("movie/upcoming")
-    fun loadUpCommingMovies ( @Query("language") language : String,
-                              @Query("page") page : Int)
-            : Deferred<Response<ApiResponse<Movie>>>
 
     @GET("movie/{movie_id}")
     fun loadMovieById(

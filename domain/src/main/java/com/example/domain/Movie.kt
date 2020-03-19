@@ -38,4 +38,18 @@ data class Movie(
     @Expose @SerializedName("media_type") val mediaType: String = "",
     @Expose @SerializedName("genre_ids") val genreIds: List<Int>,
     @Expose @SerializedName("credits") val credits: CreditsResponse? = null
-): Serializable
+): Serializable{
+
+
+
+    companion object {
+        const val NOW_PLAYING = "now_playing"
+        const val POPULAR = "popular"
+        const val TOP_RATED = "top_rated"
+        const val UPCOMING = "upcoming"
+
+        const val SIMILAR = "similar"
+        const val RECOMMENDATIONS = "recommendations"
+    }
+
+}

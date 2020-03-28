@@ -39,11 +39,17 @@ dependencies {
     //domain module dependency
     implementation project(path: ':domain')
 
+
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     //kotlin coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion"
+
+    //paging
+    implementation "androidx.paging:paging-runtime:$paging_version"
+    implementation 'androidx.room:room-runtime:2.2.4'
+    annotationProcessor 'androidx.room:room-compiler:2.2.4'// For Kotlin use paging-runtime-ktx
 
 
 }

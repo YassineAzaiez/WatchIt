@@ -1,16 +1,18 @@
-package com.example.data.dataSources
+package com.example.data.dataSources.remote
 
-import android.util.Log
+
+import com.example.domain.Movie
 import com.example.core.responses.Result
 import com.example.core.service.MovieDbService
 import com.example.domain.ApiResponse
-import com.example.domain.Movie
-import retrofit2.Response
 import java.io.IOException
 
-class MoviesDataSource (private  val movieDbService: MovieDbService) {
+class MoviesDataSource (private  val movieDbService: MovieDbService){
 
-
+    companion object {
+        const val PAGE_SIZE = 20
+        const val FIRST_PAGE = 1
+    }
 
 
      suspend fun getMovies(list : String  , language: String, page: Int) = safeApiCall(
@@ -23,6 +25,7 @@ class MoviesDataSource (private  val movieDbService: MovieDbService) {
       val response =  movieDbService.loadMovies(list,language, page).await()
         if(response.isSuccessful){
             return Result.Success(response.body()!!)
+
         }
 
         return  Result.Error(IOException("Error occurred during fetching movies!"))
@@ -38,4 +41,8 @@ class MoviesDataSource (private  val movieDbService: MovieDbService) {
 
 
     }
+
+
+
+
 }

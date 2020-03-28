@@ -14,17 +14,17 @@ import com.example.domain.Movie
 import com.example.domain.Movie.Companion.TOP_RATED
 import com.example.watchit.MovieApplication
 import com.example.watchit.R
-import com.example.watchit.adapters.GridItemDecoration
 import com.example.watchit.adapters.MoviesAdpter
 import com.example.watchit.viewmodelFactory.MoviesViewModelFactory
 import kotlinx.android.synthetic.main.fragment_movies.*
+import kotlinx.android.synthetic.main.item_movie.*
 import java.util.*
 import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  */
-class MoviesFragment : Fragment() {
+class MoviesFragment : Fragment() , MovieLikedListener{
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var moviesVm: MoviesViewModel
     private lateinit var moviesAdapter: MoviesAdpter
@@ -68,9 +68,8 @@ class MoviesFragment : Fragment() {
 
         val topRatedMoviesList = Observer<List<Movie>> { movies ->
             MovieList.apply {
-                moviesAdapter = MoviesAdpter(movies)
+                moviesAdapter = MoviesAdpter(movies,this@MoviesFragment)
                 layoutManager = gridLayoutManager
-                addItemDecoration(GridItemDecoration(2, 3))
                 adapter = moviesAdapter
 
             }
@@ -106,6 +105,16 @@ class MoviesFragment : Fragment() {
 
 
         }
+    }
+
+    override fun onMovieLiked(position: Int) {
+        moviesVm.addTofavorite(position)
+
+    }
+
+    override fun onMovieDisliked(position: Int) {
+       moviesVm.removeFromFavorites(position)
+
     }
 
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.watchit.moviesFragment.MoviesFragment
+import com.example.watchit.moviesFragment.favorites.FavoritesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -14,9 +15,12 @@ class MainActivity : AppCompatActivity() {
 
 
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
-        launchFragment(MoviesFragment())
+            launchFragment(MoviesFragment())
+
+
         val bottomNavigationMenu = findViewById<BottomNavigationView>(R.id.navigation)
         bottomNavigationMenu.setOnNavigationItemSelectedListener {
             val fragment: Fragment
@@ -35,6 +39,12 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.now_playing -> {
                     fragment = MoviesFragment.newInstance("now_playing")
+                    launchFragment(fragment)
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+                R.id.favorites -> {
+                    fragment = FavoritesFragment()
                     launchFragment(fragment)
                     return@setOnNavigationItemSelectedListener true
                 }

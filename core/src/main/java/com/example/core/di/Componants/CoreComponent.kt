@@ -3,7 +3,10 @@ package com.example.core.di.Componants
 import android.content.Context
 import com.example.core.di.modules.AppMoule
 import com.example.core.di.modules.NetworkModule
+import com.example.core.di.modules.StorageModule
 import com.example.core.service.MovieDbService
+import com.example.core.service.MoviesDAO
+import com.example.core.utils.AppDataBase
 import dagger.Component
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -12,11 +15,13 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [NetworkModule::class, AppMoule::class])
+@Component(modules = [NetworkModule::class, AppMoule::class,StorageModule::class])
 interface CoreComponent {
     fun getHttpClient() : OkHttpClient
     fun getCash() : Cache
     fun getContext() : Context
     fun getRetrofit() : Retrofit
     fun getMoviesService() : MovieDbService
+    fun getAppDb() : AppDataBase
+    fun getMoviesDao() : MoviesDAO
 }

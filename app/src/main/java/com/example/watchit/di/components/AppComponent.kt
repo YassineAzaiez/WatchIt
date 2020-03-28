@@ -5,12 +5,14 @@ import com.example.core.di.Componants.CoreComponent
 import com.example.watchit.di.modules.MovieScope
 import com.example.watchit.di.modules.MoviesModule
 import com.example.watchit.moviesFragment.MoviesFragment
+import com.example.watchit.moviesFragment.favorites.FavoritesFragment
 import dagger.Component
 
 @MovieScope
 @Component(modules = [MoviesModule::class],dependencies = [CoreComponent::class])
 interface AppComponent {
  fun inject(moviesFragment: MoviesFragment)
+ fun inject (favoritesFragment: FavoritesFragment)
 
 
 

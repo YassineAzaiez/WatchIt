@@ -1,5 +1,8 @@
 package com.example.domain
 
+import androidx.annotation.NonNull
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
@@ -8,9 +11,10 @@ import java.io.Serializable
  * Created by yassine 17/02/20 .
  */
 
+
 data class Movie(
-    @Expose
-    @SerializedName("id") val id: Int = 0,
+
+    @Expose @SerializedName("id") val id: Long = 0,
     @Expose @SerializedName("imdb_id") val imdbId: String? = null,
     @Expose @SerializedName("adult") val adult: Boolean = false,
     @Expose @SerializedName("backdrop_path") val backdropPath: String? = null,
@@ -37,7 +41,8 @@ data class Movie(
     @Expose @SerializedName("vote_count") val voteCount: Int = 0,
     @Expose @SerializedName("media_type") val mediaType: String = "",
     @Expose @SerializedName("genre_ids") val genreIds: List<Int>,
-    @Expose @SerializedName("credits") val credits: CreditsResponse? = null
+    @Expose @SerializedName("credits") val credits: CreditsResponse? = null,
+    var isBookmarked: Boolean = false
 ): Serializable{
 
 

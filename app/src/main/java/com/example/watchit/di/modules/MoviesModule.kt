@@ -1,13 +1,13 @@
 package com.example.watchit.di.modules
 
 import com.example.core.service.MovieDbService
-import com.example.data.dataSources.MoviesDataSource
+import com.example.core.service.MoviesDAO
+import com.example.data.dataSources.remote.MoviesDataSource
 import com.example.data.repositories.MoviesRepository
 import com.example.watchit.viewmodelFactory.MoviesViewModelFactory
 import dagger.Module
 import dagger.Provides
 import javax.inject.Scope
-import javax.inject.Singleton
 
 @Scope
 @Retention
@@ -18,14 +18,16 @@ class MoviesModule {
 
     @MovieScope
     @Provides
-    fun provideMovieDataSource(movieDbService: MovieDbService) : MoviesDataSource{
-        return MoviesDataSource(movieDbService)
+    fun provideMovieDataSource(movieDbService: MovieDbService) : MoviesDataSource {
+        return MoviesDataSource(
+            movieDbService
+        )
     }
 
     @MovieScope
     @Provides
-    fun provideMovieRepository(moviesDataSource: MoviesDataSource) : MoviesRepository{
-        return MoviesRepository(dataSource = moviesDataSource)
+    fun provideMovieRepository(moviesDataSource: MoviesDataSource,moviesDAO :MoviesDAO ) : MoviesRepository{
+        return MoviesRepository(dataSource = moviesDataSource,moviesDAO = moviesDAO)
     }
 
     @MovieScope

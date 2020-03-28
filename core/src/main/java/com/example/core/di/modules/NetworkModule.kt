@@ -2,12 +2,11 @@ package com.example.core.di.modules
 
 
 import android.content.Context
-import  com.example.core.BuildConfig.API_Key
-import  com.example.core.BuildConfig.BASE_URL
+import com.example.core.BuildConfig
+import com.example.core.BuildConfig.*
 import com.example.core.di.network.*
 import com.example.core.service.MovieDbService
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import dagger.Module
 import dagger.Provides
@@ -23,11 +22,10 @@ import javax.inject.Singleton
 class NetworkModule {
 
 
-
     @Provides
     @Singleton
     fun providesOkHttpClient(cache : Cache): OkHttpClient {
-        return OkHttpClient.Builder()
+        val  client =  OkHttpClient.Builder()
             .addInterceptor { chain: Interceptor.Chain ->
                 var request = chain.request()
                 var httpUrl = request.url()
@@ -41,7 +39,11 @@ class NetworkModule {
             .connectTimeout(CONNECT_TIMEOUT.toLong(), TimeUnit.SECONDS)
             .writeTimeout(WRITE_TIMEOUT.toLong(),TimeUnit.SECONDS)
             .readTimeout(READ_TIMEOUT.toLong(),TimeUnit.SECONDS)
-            .addNetworkInterceptor(StethoInterceptor()).build()
+
+        if(DEBUG){
+           client.addNetworkInterceptor(StethoInterceptor())
+        }
+        return client.build()
               }
 
     @Provides

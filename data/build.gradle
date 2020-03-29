@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -40,6 +41,7 @@ dependencies {
     implementation project(path: ':domain')
 
 
+
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     //kotlin coroutines
@@ -50,6 +52,6 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$paging_version"
     implementation 'androidx.room:room-runtime:2.2.4'
     annotationProcessor 'androidx.room:room-compiler:2.2.4'// For Kotlin use paging-runtime-ktx
-
+    kapt "android.arch.persistence.room:compiler:1.0.0-alpha4"
 
 }

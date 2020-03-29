@@ -1,14 +1,21 @@
 package com.example.core.utils
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import com.example.core.service.MoviesDAO
-import com.example.core.service.model.LocalMovie
+import com.example.core.utils.typeConverters.*
+import com.example.domain.Movie
 
 
-@Database(entities = [LocalMovie::class],version = 1,exportSchema = false)
+@Database(entities = [Movie::class],version = 1,exportSchema = false)
+@TypeConverters(TypeGenderConverter::class,
+    TypeCastConverter::class,
+    TypeCrewConverter::class,
+    TypeIntConverter::class,
+    TypeMovieConverter::class,
+    TypeCountryConverter::class,
+    TypeCompanyConverter::class,
+    TypeLanguageConverter::class)
 abstract class AppDataBase : RoomDatabase(){
 
     abstract fun moviesDao() : MoviesDAO

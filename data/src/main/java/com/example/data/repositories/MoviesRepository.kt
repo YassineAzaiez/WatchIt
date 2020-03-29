@@ -4,7 +4,6 @@ import android.util.Log
 import com.example.core.responses.RemoteDataNotFoundException
 import com.example.core.responses.Result
 import com.example.core.service.MoviesDAO
-import com.example.core.service.model.LocalMovie
 import com.example.data.dataSources.remote.MoviesDataSource
 import com.example.domain.Movie
 import kotlinx.coroutines.Dispatchers
@@ -28,14 +27,9 @@ class MoviesRepository(
 
     }
 
-    suspend fun addMovieToFavorite(movie: Movie) = withContext(Dispatchers.IO) {
+    suspend fun addMovieToFavorite(movie: Movie?) = withContext(Dispatchers.IO) {
 
-            moviesDAO.insertMovie(
-                LocalMovie(
-                    movie.id, movie.title, movie.overview, movie.posterPath,
-                    movie.backdropPath, movie.releaseDate, movie.voteAverage,movie.isBookmarked
-                )
-            )
+            moviesDAO.insertMovie(movie)
         }
 
     suspend fun removeMovieFromFavorite(movie: Movie) =  withContext(Dispatchers.IO){
@@ -43,7 +37,7 @@ class MoviesRepository(
     }
 
 
-    suspend fun loadMoviesFromDb(): Result<List<LocalMovie>> =
+    suspend fun loadMoviesFromDb(): Result<List<Movie>> =
         withContext(Dispatchers.IO) {
             Log.d("selection is done : ", "Successfully")
             Result.Success(moviesDAO.getAllMovies())

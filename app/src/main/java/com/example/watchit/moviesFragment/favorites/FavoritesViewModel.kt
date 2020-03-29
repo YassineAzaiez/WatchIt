@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.responses.Result
-import com.example.core.service.model.LocalMovie
 import com.example.data.repositories.MoviesRepository
+import com.example.domain.Movie
 import kotlinx.coroutines.launch
 
 class FavoritesViewModel(private val moviesRepository: MoviesRepository) : ViewModel() {
-    private val moviesList = MutableLiveData<List<LocalMovie>>()
-    val favoriteMovie: LiveData<List<LocalMovie>>
+    private val moviesList = MutableLiveData<List<Movie>>()
+    val favoriteMovie: LiveData<List<Movie>>
         get() = moviesList
 
     fun getFavoriteMovies() = viewModelScope.launch {

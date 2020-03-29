@@ -7,13 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.core.service.model.LocalMovie
+import com.example.domain.Movie
 import com.example.watchit.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 
-class FavoriteMoviesAdpter(private val movies: List<LocalMovie>) :
+class FavoriteMoviesAdpter(private val movies: List<Movie>) :
     RecyclerView.Adapter<FavoriteMoviesAdpter.MovieHolder>() {
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
@@ -40,7 +40,7 @@ class FavoriteMoviesAdpter(private val movies: List<LocalMovie>) :
             this.itemView.setOnClickListener(this)
         }
 
-        fun bindMovie(movie: LocalMovie) {
+        fun bindMovie(movie: Movie) {
             itemView.tvMovieTitle.text = movie.title
             Picasso.get()
                 .load(Uri.parse("https://image.tmdb.org/t/p/w500" + movie.posterPath))

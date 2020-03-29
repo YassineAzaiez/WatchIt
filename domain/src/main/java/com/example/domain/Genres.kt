@@ -8,8 +8,8 @@ import java.io.Serializable
  */
 
 data class Genres (
-   @SerializedName("id") val id: Int,
-   @SerializedName("name") val name: String
+   @SerializedName("id") val id: Int = 0,
+   @SerializedName("name") val name: String? = ""
 ): Serializable {
 
    companion object {

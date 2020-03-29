@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.core.service.model.LocalMovie
+import com.example.domain.Movie
 import com.example.watchit.MovieApplication
 
 import com.example.watchit.R
@@ -46,7 +46,7 @@ class FavoritesFragment : Fragment() {
         viewModel = ViewModelProviders.of(this,moviesViewModelFactory).get(FavoritesViewModel::class.java)
         viewModel.getFavoriteMovies()
 
-        val favoriteMoviesList = Observer<List<LocalMovie>>{
+        val favoriteMoviesList = Observer<List<Movie>>{
             MovieList.apply {
                 layoutManager = gridLayoutManager
                 moviesAdapter = FavoriteMoviesAdpter(it)

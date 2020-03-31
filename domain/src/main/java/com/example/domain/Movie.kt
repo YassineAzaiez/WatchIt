@@ -52,7 +52,6 @@ import java.io.Serializable
         const val POPULAR = "popular"
         const val TOP_RATED = "top_rated"
         const val UPCOMING = "upcoming"
-
         const val SIMILAR = "similar"
         const val RECOMMENDATIONS = "recommendations"
     }

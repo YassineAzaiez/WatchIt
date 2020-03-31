@@ -16,9 +16,7 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MoviesAdpter(private val movies:List<Movie>,private val movieLikedListener: MovieLikedListener) :
     RecyclerView.Adapter<MoviesAdpter.MovieHolder>() {
-    companion object{
-        val movieLiked :MovieLikedListener? = null
-    }
+
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         holder.bindMovie(movies[position],movieLikedListener)
@@ -47,16 +45,26 @@ class MoviesAdpter(private val movies:List<Movie>,private val movieLikedListener
                 .load(Uri.parse("https://image.tmdb.org/t/p/w500" + movie.posterPath))
                 .into(itemView.ivMoviePic)
 
-            itemView.ivFavorite.setOnClickListener {
+
                 var postion = adapterPosition
-                if (!movie.isBookmarked) {
-                    movieLikedListener.onMovieLiked(postion)
+                if (movie.isBookmarked) {
                     itemView.ivFavorite.setImageResource(R.drawable.ic_favorite_enable)
 
                 } else {
-                    movieLikedListener.onMovieDisliked(postion)
                     itemView.ivFavorite.setImageResource(R.drawable.ic_favorite_disabled)
                 }
+            itemView.ivFavorite.setOnClickListener {
+                when (movie.isBookmarked){
+                    true -> {
+                        movieLikedListener.onMovieDisliked(postion)
+                        movie.isBookmarked = false
+                    }
+                     false ->{
+                         movieLikedListener.onMovieLiked(postion)
+                         movie.isBookmarked = true
+                     }
+                }
+
             }
         }
 

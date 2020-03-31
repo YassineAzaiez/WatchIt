@@ -51,7 +51,7 @@ dependencies {
     //paging
     implementation "androidx.paging:paging-runtime:$paging_version"
     implementation 'androidx.room:room-runtime:2.2.4'
-    annotationProcessor 'androidx.room:room-compiler:2.2.4'// For Kotlin use paging-runtime-ktx
-    kapt "android.arch.persistence.room:compiler:1.0.0-alpha4"
+    kapt  'androidx.room:room-compiler:2.2.4'// For Kotlin use paging-runtime-ktx
+
 
 }

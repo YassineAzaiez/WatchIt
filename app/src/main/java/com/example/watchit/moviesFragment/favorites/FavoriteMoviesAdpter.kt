@@ -2,22 +2,22 @@ package com.example.watchit.moviesFragment.favorites
 
 
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.Movie
+import com.example.domain.LocalMovie
 import com.example.watchit.R
+import com.example.watchit.moviesFragment.MovieLikedListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 
-class FavoriteMoviesAdpter(private val movies: List<Movie>) :
+class FavoriteMoviesAdpter(private val movies: List<LocalMovie>, private val movieLikedListener: MovieLikedListener) :
     RecyclerView.Adapter<FavoriteMoviesAdpter.MovieHolder>() {
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        holder.bindMovie(movies[position])
+        holder.bindMovie(movies[position],movieLikedListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewe: Int): MovieHolder {
@@ -33,27 +33,25 @@ class FavoriteMoviesAdpter(private val movies: List<Movie>) :
     }
 
 
-    class MovieHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    class MovieHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        init {
 
-            this.itemView.setOnClickListener(this)
-        }
-
-        fun bindMovie(movie: Movie) {
+        fun bindMovie(movie: LocalMovie,movieLikedListener: MovieLikedListener) {
             itemView.tvMovieTitle.text = movie.title
             Picasso.get()
                 .load(Uri.parse("https://image.tmdb.org/t/p/w500" + movie.posterPath))
                 .into(itemView.ivMoviePic)
 
+            itemView.ivFavorite.apply {
+                setImageResource(R.drawable.ic_favorite_enable)
+                setOnClickListener{
+                    movieLikedListener.onMovieDisliked(adapterPosition)
+
+                }
+            }
+
+
 
         }
-
-        override fun onClick(v: View?) {
-            Log.d("movie", " clicked")
-        }
-
     }
-
-
 }

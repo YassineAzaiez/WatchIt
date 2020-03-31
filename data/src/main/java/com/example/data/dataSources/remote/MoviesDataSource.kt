@@ -9,15 +9,10 @@ import java.io.IOException
 
 class MoviesDataSource (private  val movieDbService: MovieDbService){
 
-    companion object {
-        const val PAGE_SIZE = 20
-        const val FIRST_PAGE = 1
-    }
 
-
-     suspend fun getMovies(list : String  , language: String, page: Int) = safeApiCall(
+     suspend fun getMovies(list : String, language: String, page: Int) = safeApiCall(
          call = {loadMovies(list,language,page)}
-         ,errorMessage= "Error occured"
+         ,errorMessage= "Error occurred"
      )
 
 

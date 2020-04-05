@@ -1,7 +1,6 @@
 package com.example.data.repositories
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import com.example.core.responses.RemoteDataNotFoundException
 import com.example.core.responses.Result
 import com.example.core.service.MoviesDAO
@@ -42,7 +41,7 @@ class MoviesRepository(
     suspend fun loadMoviesFromDb(): Result<List<LocalMovie>> =
         withContext(Dispatchers.IO) {
             Log.d("selection is done : ", "Successfully")
-           var  movies = moviesDAO.getAllMovies()
+           val  movies = moviesDAO.getAllMovies()
             Result.Success(movies)
         }
 

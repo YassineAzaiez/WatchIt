@@ -9,8 +9,8 @@ android:layout_height="match_parent"
 <androidx.recyclerview.widget.RecyclerView
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="@android:color/black"
     android:id="@+id/MovieList"
+    android:background="@android:color/black"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 

@@ -12,7 +12,7 @@ class MoviesDataSource (private  val movieDbService: MovieDbService){
 
      suspend fun getMovies(list : String, language: String, page: Int) = safeApiCall(
          call = {loadMovies(list,language,page)}
-         ,errorMessage= "Error occurred"
+         ,errorMessage= "Error occurred while fetching data"
      )
 
 

@@ -9,6 +9,7 @@
     <color name="splash_background"> #081c24</color>
     <color name="tmdb_icon_color">#01d277</color>
     <color name="iconInactiveColor">#80ffffff</color>
+    <color name="placeHolderColor">#FFE0E0E0</color>
     <color name="white">#fff</color>
 
 </resources>

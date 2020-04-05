@@ -43,6 +43,7 @@ class MoviesAdpter(private val movies:List<Movie>,private val movieLikedListener
             itemView.tvMovieTitle.text = movie.title
             Picasso.get()
                 .load(Uri.parse("https://image.tmdb.org/t/p/w500" + movie.posterPath))
+                .placeholder(R.drawable.placeholder_rectangle)
                 .into(itemView.ivMoviePic)
 
 

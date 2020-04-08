@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.core.utils.isNetworkAvailabe
 import com.example.domain.LocalMovie
 import com.example.domain.Movie
@@ -17,6 +18,7 @@ import com.example.domain.Movie.Companion.TOP_RATED
 import com.example.watchit.MovieApplication
 import com.example.watchit.R
 import com.example.watchit.adapters.MoviesAdpter
+import com.example.watchit.adapters.RecyclerViewLoadMoreScroll
 import com.example.watchit.viewmodelFactory.MoviesViewModelFactory
 import kotlinx.android.synthetic.main.fragment_movies.*
 import java.util.*
@@ -31,6 +33,7 @@ class MoviesFragment : Fragment(), MovieLikedListener {
     private lateinit var moviesVm: MoviesViewModel
     private lateinit var moviesAdapter: MoviesAdpter
     private lateinit var list: String
+    private  lateinit var mRecyclerViewLoadMoreScroll : RecyclerViewLoadMoreScroll
     private lateinit var movieList: List<Movie>
     var likedMovieList = emptyList<LocalMovie>()
 
@@ -66,12 +69,27 @@ class MoviesFragment : Fragment(), MovieLikedListener {
 
 
         gridLayoutManager = GridLayoutManager(requireContext(), getColumnsNumber())
+        MovieList.addOnScrollListener(object  : RecyclerViewLoadMoreScroll(gridLayoutManager){
+            override fun onLoadMore(page: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (recyclerView.canScrollVertically(1) && moviesAdapter.itemCount != 0) {
+                    moviesVm.loadLikedMovies()
+                }
+            }
+        })
         MovieApplication.appCoponent.inject(this)
         moviesVm = ViewModelProviders.of(this, viewModelFactory)[MoviesViewModel::class.java]
-        moviesVm.loadMovies(list, Locale.getDefault().language, 1)
+
+        moviesVm.loadMovies(list, Locale.getDefault().language)
 
         if(requireContext().isNetworkAvailabe()){
             moviesVm.loadLikedMovies()
+            noInternet.visibility = View.GONE
+            btngoToFavorite.visibility = View.GONE
         }else{
             noInternet.visibility = View.VISIBLE
             MovieList.visibility = View.GONE
@@ -87,6 +105,7 @@ class MoviesFragment : Fragment(), MovieLikedListener {
 
             }
         }
+
 
 
         val likedMovies = Observer<List<LocalMovie>> {
@@ -142,8 +161,8 @@ class MoviesFragment : Fragment(), MovieLikedListener {
         if (!likedMovieList.isNullOrEmpty()) {
             for (movie in movies) {
                 for (local in likedMovieList) {
-                  if(movie.id == local.id)
-                    movie.isBookmarked = true
+                    if(movie.id == local.id)
+                        movie.isBookmarked = true
 
                 }
                 result.add(movie)
@@ -155,7 +174,6 @@ class MoviesFragment : Fragment(), MovieLikedListener {
     }
 
 }
-
 
 
 

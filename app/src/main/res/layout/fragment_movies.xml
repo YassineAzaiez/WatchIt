@@ -28,7 +28,7 @@ android:layout_height="match_parent"
         tools:layout_editor_absoluteY="-65dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btngoToFavorite"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

@@ -11,6 +11,7 @@ import com.example.domain.Movie
 import kotlinx.coroutines.launch
 
 class MoviesViewModel(private val moviesRepository: MoviesRepository) : ViewModel() {
+    private var page: Int = 0
     private val movieList = MutableLiveData<List<Movie>>()
     private val likedMovies = MutableLiveData<List<LocalMovie>>()
 
@@ -27,7 +28,8 @@ class MoviesViewModel(private val moviesRepository: MoviesRepository) : ViewMode
     }
 
 
-    fun loadMovies(list: String, language: String, page: Int) {
+    fun loadMovies(list: String, language: String) {
+        page +=1
         viewModelScope.launch {
             when (val movies = moviesRepository.loadMoviesFromApi(list, language, page)) {
                 is Result.Success ->{

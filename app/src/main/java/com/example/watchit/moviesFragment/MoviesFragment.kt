@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.core.utils.isNetworkAvailabe
 import com.example.domain.LocalMovie
 import com.example.domain.Movie
 import com.example.domain.Movie.Companion.TOP_RATED
@@ -68,7 +69,14 @@ class MoviesFragment : Fragment(), MovieLikedListener {
         MovieApplication.appCoponent.inject(this)
         moviesVm = ViewModelProviders.of(this, viewModelFactory)[MoviesViewModel::class.java]
         moviesVm.loadMovies(list, Locale.getDefault().language, 1)
-        moviesVm.loadLikedMovies()
+
+        if(requireContext().isNetworkAvailabe()){
+            moviesVm.loadLikedMovies()
+        }else{
+            noInternet.visibility = View.VISIBLE
+            MovieList.visibility = View.GONE
+        }
+
 
         val topRatedMoviesList = Observer<List<Movie>> { movies ->
             movieList = getBookmarkedMovies(movies)

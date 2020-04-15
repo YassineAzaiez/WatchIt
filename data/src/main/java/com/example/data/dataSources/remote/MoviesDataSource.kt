@@ -26,6 +26,20 @@ class MoviesDataSource (private  val movieDbService: MovieDbService){
         return  Result.Error(IOException("Error occurred during fetching movies!"))
     }
 
+     suspend fun getSearchResult(language : String,query :String,page : Int,include_adult : Boolean) = safeApiCall(
+         call = {searchForMovies(language,query,page,include_adult)}
+         ,errorMessage= "Error occurred while fetching data"
+     )
+
+    private suspend fun searchForMovies(language : String,query :String,page : Int,include_adult : Boolean) : Result<ApiResponse<Movie>>{
+        val response = movieDbService.searchMovies(language,query,page,include_adult).await()
+        if(response.isSuccessful){
+            return Result.Success(response.body()!!)
+        }
+
+        return Result.Error(IOException("Error occurred during fetching movies!"))
+    }
+
     private suspend fun <T : Any> safeApiCall(
         call: suspend () -> Result<T>,
         errorMessage: String

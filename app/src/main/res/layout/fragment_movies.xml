@@ -18,24 +18,35 @@ android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="@+id/MovieList"
         app:srcCompat="@drawable/ic_signal_wifi_off_black_24dp" />
 
+    <Button
+        android:id="@+id/btngoToFavorite"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/btn_favorite_color"
+        android:textColor="#eee"
+        android:text="@string/check_favorite"
+        app:layout_constraintEnd_toEndOf="@+id/noInternet"
+        app:layout_constraintStart_toStartOf="@+id/noInternet"
+        app:layout_constraintTop_toBottomOf="@+id/noInternet" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/MovieList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-65dp" />
+        tools:layout_editor_absoluteX="-117dp"
+        tools:layout_editor_absoluteY="0dp" />
 
-    <Button
-        android:id="@+id/btngoToFavorite"
-        android:layout_width="100dp"
+    <ProgressBar
+        android:id="@+id/loading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="@+id/noInternet"
-        app:layout_constraintStart_toStartOf="@+id/noInternet"
-        app:layout_constraintTop_toBottomOf="@+id/noInternet" />
+        app:layout_constraintBottom_toBottomOf="@+id/MovieList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

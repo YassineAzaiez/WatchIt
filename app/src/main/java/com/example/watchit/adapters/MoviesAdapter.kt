@@ -2,7 +2,6 @@ package com.example.watchit.adapters
 
 
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +13,9 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 
-class MoviesAdpter(private val movies:List<Movie>,private val movieLikedListener: MovieLikedListener) :
-    RecyclerView.Adapter<MoviesAdpter.MovieHolder>() {
+class MoviesAdapter constructor(private val movies:ArrayList<Movie> = ArrayList(), private val movieLikedListener: MovieLikedListener?=null) :
+    RecyclerView.Adapter<MoviesAdapter.MovieHolder>() {
+
 
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
@@ -34,12 +34,22 @@ class MoviesAdpter(private val movies:List<Movie>,private val movieLikedListener
         return movies.size
     }
 
+    fun addAll(movieList:ArrayList<Movie>) : ArrayList<Movie>{
+         movies.addAll(movieList)
+       return  movies
+    }
+
+    fun clear() {
+        movies.clear()
+        notifyDataSetChanged()
+    }
+
 
     class MovieHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
 
 
-        fun bindMovie(movie: Movie,movieLikedListener: MovieLikedListener) {
+        fun bindMovie(movie: Movie,movieLikedListener: MovieLikedListener?) {
             itemView.tvMovieTitle.text = movie.title
             Picasso.get()
                 .load(Uri.parse("https://image.tmdb.org/t/p/w500" + movie.posterPath))
@@ -57,11 +67,11 @@ class MoviesAdpter(private val movies:List<Movie>,private val movieLikedListener
             itemView.ivFavorite.setOnClickListener {
                 when (movie.isBookmarked){
                     true -> {
-                        movieLikedListener.onMovieDisliked(postion)
+                        movieLikedListener?.onMovieDisliked(postion)
                         movie.isBookmarked = false
                     }
                      false ->{
-                         movieLikedListener.onMovieLiked(postion)
+                         movieLikedListener?.onMovieLiked(postion)
                          movie.isBookmarked = true
                      }
                 }

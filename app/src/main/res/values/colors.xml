@@ -11,5 +11,7 @@
     <color name="iconInactiveColor">#80ffffff</color>
     <color name="placeHolderColor">#FFE0E0E0</color>
     <color name="white">#fff</color>
+    <color name="Transparent">#00000000</color>
+    <color name="btn_favorite_color">#c81912</color>
 
 </resources>

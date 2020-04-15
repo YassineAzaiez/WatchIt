@@ -16,12 +16,10 @@ interface MovieDbService {
 
     @GET("search/movie?")
     fun searchMovies(
-        @Query("api_key") apiKey: String,
         @Query("language") lang: String,
         @Query("query") query: String,
         @Query("page") page: Int,
-        @Query("include_adult") adult: Boolean,
-        @Query("region") region: String
+        @Query("include_adult") adult: Boolean
     ): Deferred<Response<ApiResponse<Movie>>>
 
     @GET("movie/{movie_id}/reviews")

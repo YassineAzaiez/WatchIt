@@ -1,5 +1,7 @@
 package com.example.data.repositories
 
+import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import com.example.core.responses.RemoteDataNotFoundException
 import com.example.core.responses.Result
@@ -15,17 +17,31 @@ class MoviesRepository(
     private val moviesDAO: MoviesDAO
 ) {
 
+     companion object{
+         var page_number = 0
+     }
 
     suspend fun loadMoviesFromApi(list: String, language: String, page: Int): Result<List<Movie>> {
         return when (val result = dataSource.getMovies(list, language, page)) {
             is Result.Success -> {
-
+               page_number = result.data.totalPages
                 Result.Success(result.data.results)
 
             }
             else -> Result.Error(RemoteDataNotFoundException())
         }
 
+    }
+
+    suspend fun  getSearchResults(language: String,query: String , page: Int
+                                  , include_adult : Boolean) : Result<List<Movie>>{
+        return when(val result = dataSource.getSearchResult(language,query,page,include_adult)){
+            is Result.Success ->{
+                Result.Success(result.data.results)
+            }
+
+            else -> Result.Error(RemoteDataNotFoundException())
+        }
     }
 
     suspend fun addMovieToFavorite(movie: Movie?) = withContext(Dispatchers.IO) {

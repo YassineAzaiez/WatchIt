@@ -20,4 +20,18 @@
 
     </style>
 
+  <style name="Search">
+      <item name="android:textSize">20sp</item>
+      <item name="backgroundTint">@color/Transparent</item>
+      <item name="android:hint">@string/search</item>
+      <item name="android:inputType">text</item>
+      <item name="android:textCursorDrawable">@null</item>
+      <item name="android:imeOptions">actionSearch|flagNoExtractUi</item>
+      <item name="android:ellipsize">end</item>
+      <item name="android:maxLines">1</item>
+      <item name="android:textColor">?android:attr/textColorPrimary</item>
+      <item name="android:textColorHint">?android:attr/textColorHint</item>
+  </style>
+
+
 </resources>

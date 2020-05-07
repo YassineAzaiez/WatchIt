@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.domain.LocalMovie
 import com.example.watchit.MovieApplication
 import com.example.watchit.R
-import com.example.watchit.Utils
+import com.example.watchit.utils.Utils
 import com.example.watchit.moviesFragment.MovieLikedListener
 import com.example.watchit.viewmodelFactory.MoviesViewModelFactory
 import kotlinx.android.synthetic.main.fragment_movies.*
@@ -72,6 +72,10 @@ class FavoritesFragment : Fragment() ,MovieLikedListener{
         moviesAdapter.notifyItemRemoved(position)
         refreshFragment(this)
 
+    }
+
+    override fun onMovieClicked(position: Int) {
+        TODO("Not yet implemented")
     }
 
     private fun refreshFragment(fragment: Fragment){

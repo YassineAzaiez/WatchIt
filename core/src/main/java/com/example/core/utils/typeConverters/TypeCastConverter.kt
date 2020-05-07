@@ -11,9 +11,7 @@ class TypeCastConverter :Serializable {
 
     @TypeConverter
     fun fromString(value: String?): List<Cast>? {
-        val listType = object : TypeToken<List<Cast>?>() {
-
-        }.type
+        val listType = object : TypeToken<List<Cast>?>(){}.type
         return Gson().fromJson(value, listType)
     }
 

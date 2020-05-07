@@ -43,10 +43,9 @@ interface MovieDbService {
     @GET("movie/{movie_id}")
     fun loadMovieById(
         @Path("movie_id") id: Long,
-        @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("append_to_response") appendToResponse: String
-    ): Deferred<Response<ApiResponse<Movie>>>
+    ): Deferred<Response<Movie>>
 
     @GET("movie/{movie_id}/keywords")
     fun loadMovieKeywords(
@@ -63,7 +62,7 @@ interface MovieDbService {
 
 
     @GET("movie/{movie_id}/recommendations")
-    fun loadRecomandedMovies(@Path("movie_id") id : Int
+    fun loadRecomandedMovies(@Path("movie_id") id : Long
                              , @Query("page") page : Int): Deferred<Response<ApiResponse<Movie>>>
 
     @GET("keyword/{keyword_id}/movies")

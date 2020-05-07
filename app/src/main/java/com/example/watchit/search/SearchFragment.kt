@@ -10,17 +10,15 @@ import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.Movie
 import com.example.watchit.MovieApplication
 
 import com.example.watchit.R
-import com.example.watchit.Utils
+import com.example.watchit.utils.Utils
 import com.example.watchit.adapters.MoviesAdapter
 import com.example.watchit.adapters.OnLoadListener
 import com.example.watchit.adapters.RecyclerViewLoadMoreScroll
 import com.example.watchit.viewmodelFactory.MoviesViewModelFactory
-import kotlinx.android.synthetic.main.fragment_movies.*
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.snippet_search_toolbar.*
 import java.util.*
@@ -54,7 +52,8 @@ class SearchFragment : Fragment() , OnLoadListener{
         searchViewModel = ViewModelProviders.of(this,viewModelFactory)[SearchViewModel::class.java]
         searchAdapter = MoviesAdapter()
         searchList.hasFixedSize()
-        gridLayoutManager = GridLayoutManager(requireContext(),Utils.getColumnsNumber(requireActivity()))
+        gridLayoutManager = GridLayoutManager(requireContext(),
+            Utils.getColumnsNumber(requireActivity()))
         searchList.addOnScrollListener(RecyclerViewLoadMoreScroll(gridLayoutManager,this))
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             moviesSearchToolbar.navigationIcon =

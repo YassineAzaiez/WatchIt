@@ -1,34 +1,30 @@
 package com.example.watchit.moviesFragment
 
 
-import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.example.core.utils.isNetworkAvailabe
 import com.example.domain.LocalMovie
 import com.example.domain.Movie
 import com.example.domain.Movie.Companion.TOP_RATED
 import com.example.watchit.MovieApplication
 import com.example.watchit.R
-import com.example.watchit.Utils
+import com.example.watchit.utils.Utils
 import com.example.watchit.adapters.MoviesAdapter
 import com.example.watchit.adapters.OnLoadListener
 import com.example.watchit.adapters.RecyclerViewLoadMoreScroll
+import com.example.watchit.movieDetails.MovieDetailActivity
 import com.example.watchit.moviesFragment.favorites.FavoritesFragment
 import com.example.watchit.viewmodelFactory.MoviesViewModelFactory
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_movies.*
-import kotlinx.android.synthetic.main.fragment_search.*
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -56,6 +52,7 @@ class MoviesFragment : Fragment(), MovieLikedListener, OnLoadListener {
             }
 
         const val EXTRA_LIST = "movies"
+        const val EXTRA_ITEM = "movie"
 
         internal fun newInstance(list: String) = MoviesFragment().withArgs {
             putString(EXTRA_LIST, list)
@@ -92,6 +89,12 @@ class MoviesFragment : Fragment(), MovieLikedListener, OnLoadListener {
         moviesVm.removeFromFavorites(position)
         moviesAdapter.notifyItemChanged(position)
 
+    }
+
+    override fun onMovieClicked(position: Int) {
+       val intent = Intent(activity,MovieDetailActivity::class.java)
+        intent.putExtra(EXTRA_ITEM,movieList[position])
+        activity?.startActivity(intent)
     }
 
     private fun getBookmarkedMovies(movies: ArrayList<Movie>): ArrayList<Movie> {

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#37474F</color>
+    <color name="primary">#282828</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="album_title">#fffefe</color>
     <color name="black_transparent">#73000000</color>
     <color name="black_background">#232020</color>
+    <color name="transparent">#00000000</color>
     <color name="splash_background"> #081c24</color>
     <color name="tmdb_icon_color">#01d277</color>
     <color name="iconInactiveColor">#80ffffff</color>
@@ -13,5 +15,8 @@
     <color name="white">#fff</color>
     <color name="Transparent">#00000000</color>
     <color name="btn_favorite_color">#c81912</color>
+    <color name="primary2">#282828</color>
+    <color name="transparent40">#66000000</color>
+    <color name="material_500">#eee</color>
 
 </resources>

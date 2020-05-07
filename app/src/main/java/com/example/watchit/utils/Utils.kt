@@ -1,4 +1,4 @@
-package com.example.watchit
+package com.example.watchit.utils
 
 import android.app.Activity
 import android.content.res.Configuration

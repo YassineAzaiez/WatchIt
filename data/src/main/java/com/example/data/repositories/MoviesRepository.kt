@@ -21,6 +21,20 @@ class MoviesRepository(
          var page_number = 0
      }
 
+    suspend fun  getRecommendedMovies(id : Long , page: Int) : Result<List<Movie>> {
+        return  when (val result = dataSource.loadRecommendedMovies(id , page)){
+            is Result.Success -> Result.Success(result.data.results)
+            else -> Result.Error(RemoteDataNotFoundException())
+        }
+    }
+
+    suspend fun getMovieById(id : Long , language: String, appendToResponse: String) : Result<Movie>{
+        return when (val result = dataSource.getMovieById(id, language, appendToResponse)){
+            is Result.Success -> Result.Success(result.data)
+            else -> Result.Error(RemoteDataNotFoundException())
+        }
+    }
+
     suspend fun loadMoviesFromApi(list: String, language: String, page: Int): Result<List<Movie>> {
         return when (val result = dataSource.getMovies(list, language, page)) {
             is Result.Success -> {

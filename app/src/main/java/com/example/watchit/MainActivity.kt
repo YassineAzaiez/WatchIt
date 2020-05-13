@@ -1,6 +1,7 @@
 package com.example.watchit
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -8,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.watchit.moviesFragment.MoviesFragment
 import com.example.watchit.moviesFragment.favorites.FavoritesFragment
+import com.example.watchit.search.SearchActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.snippet_search_movies_toolbar.*
 
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -27,6 +30,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             R.id.up_comming -> launchFragment(MoviesFragment.newInstance("upcoming"))
             R.id.now_playing -> launchFragment(MoviesFragment.newInstance("now_playing"))
             else -> launchFragment(MoviesFragment())
+        }
+
+        ivSearchIcon.setOnClickListener {
+             val intent = Intent(this,SearchActivity::class.java)
+              startActivity(intent)
         }
 
 

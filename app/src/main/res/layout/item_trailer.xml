@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:scaleType="fitXY"
         android:layout_height="match_parent" />
-    
+
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="50dp"
@@ -21,7 +21,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black_transparent"
         android:layout_gravity="bottom">
 
         <androidx.appcompat.widget.AppCompatImageView

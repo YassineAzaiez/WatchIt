@@ -13,7 +13,7 @@
     <string name="movie_name">Movie Name</string>
     <string name="movie_TagLine">movie TagLine</string>
     <string name="recommended_movies">Recommended Movies </string>
-    <string name="similar_movies">similar Movies</string>
+    <string name="similar_movies">Trailer</string>
     <string name="vote_average">%1$s / 10</string>
     <string name="number_of_voters">%1$s votes</string>
 

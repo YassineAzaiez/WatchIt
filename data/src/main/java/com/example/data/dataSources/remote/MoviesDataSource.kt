@@ -2,18 +2,34 @@ package com.example.data.dataSources.remote
 
 
 import com.example.core.responses.Result
-import com.example.core.service.MovieDbService
+import com.example.core.service.MovieWebService
 import com.example.domain.ApiResponse
 import com.example.domain.Movie
+import com.example.domain.Video
 import java.io.IOException
 
-class MoviesDataSource(private val movieDbService: MovieDbService) {
+class MoviesDataSource(private val movieWebService: MovieWebService) {
 
-    val errorMessage = "Error occurred while fetching data"
+    private val errorMessage = "Error occurred while fetching data"
     suspend fun getMovies(list: String, language: String, page: Int) = safeApiCall(
         call = { loadMovies(list, language, page) }
         , errorMessage = errorMessage
     )
+
+    suspend fun getTrailers(id: Long, language: String) = safeApiCall(
+        call = { loadTrailers(id, language) },
+        errorMessage = errorMessage
+    )
+
+
+    private suspend fun loadTrailers(id: Long, language: String): Result<ApiResponse<Video>> {
+        val response = movieWebService.loadMovieTrailers(id, language).await()
+        if (response.isSuccessful) {
+            return Result.Success(response.body()!!)
+        }
+
+        return Result.Error(IOException("Error occurred during fetching movies!"))
+    }
 
 
     private suspend fun loadMovies(
@@ -21,7 +37,7 @@ class MoviesDataSource(private val movieDbService: MovieDbService) {
         language: String,
         page: Int
     ): Result<ApiResponse<Movie>> {
-        val response = movieDbService.loadMovies(list, language, page).await()
+        val response = movieWebService.loadMovies(list, language, page).await()
         if (response.isSuccessful) {
             return Result.Success(response.body()!!)
 
@@ -45,7 +61,7 @@ class MoviesDataSource(private val movieDbService: MovieDbService) {
         id: Long, language: String,
         appendToResponse: String
     ): Result<Movie> {
-        val response = movieDbService.loadMovieById(id, language, appendToResponse).await()
+        val response = movieWebService.loadMovieById(id, language, appendToResponse).await()
         if (response.isSuccessful) {
             return Result.Success(response.body()!!)
         }
@@ -53,7 +69,7 @@ class MoviesDataSource(private val movieDbService: MovieDbService) {
     }
 
     private suspend fun getRecommendedMovies(id: Long, page: Int): Result<ApiResponse<Movie>> {
-        val response = movieDbService.loadRecomandedMovies(id, page).await()
+        val response = movieWebService.loadRecomandedMovies(id, page).await()
         if (response.isSuccessful) {
             return Result.Success(response.body()!!)
         }
@@ -77,7 +93,7 @@ class MoviesDataSource(private val movieDbService: MovieDbService) {
         page: Int,
         include_adult: Boolean
     ): Result<ApiResponse<Movie>> {
-        val response = movieDbService.searchMovies(language, query, page, include_adult).await()
+        val response = movieWebService.searchMovies(language, query, page, include_adult).await()
         if (response.isSuccessful) {
             return Result.Success(response.body()!!)
         }

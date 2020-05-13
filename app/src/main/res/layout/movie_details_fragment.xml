@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".movieDetails.MovieDetailsFragment">
+    android:layout_height="match_parent"
+    tools:context=".movieDetails.MovieDetailsFragment"
+    android:background="#333333">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
 
         <ImageView
@@ -19,44 +20,45 @@
             android:src="@drawable/placeholder_rectangle"
             app:layout_constraintEnd_toStartOf="@id/guideline4"
             app:layout_constraintStart_toStartOf="@id/guideline"
-            app:layout_constraintBottom_toTopOf="@id/movieGenre"
+            app:layout_constraintBottom_toTopOf="@id/movieTitle"
             app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
             android:id="@+id/movieTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:maxLines="1"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:text="@string/movie_name"
             android:textColor="@color/material_500"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline3"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/guideline4"
-            app:layout_constraintTop_toTopOf="@+id/moviePoster" />
+            app:layout_constraintStart_toEndOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/moviePoster" />
 
         <TextView
             android:id="@+id/movieTagLine"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="37dp"
+            android:layout_marginTop="10dp"
             android:maxLines="1"
-            android:textColor="@color/material_500"
             android:text="@string/movie_TagLine"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/material_500"
+            app:layout_constraintEnd_toEndOf="@id/guideline3"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/guideline4"
-            app:layout_constraintTop_toTopOf="@+id/moviePoster" />
+            app:layout_constraintBottom_toTopOf="@id/movieGenre"
+            app:layout_constraintStart_toEndOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/movieTitle" />
 
         <ImageView
             android:id="@+id/calender"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="79dp"
+            android:layout_marginTop="30dp"
             android:contentDescription="TODO"
             app:layout_constraintStart_toEndOf="@+id/guideline4"
             app:layout_constraintTop_toTopOf="parent"
@@ -90,7 +92,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="TextView"
             android:textColor="@color/material_500"
             app:layout_constraintBottom_toBottomOf="@+id/clock"
             app:layout_constraintStart_toEndOf="@+id/clock"
@@ -145,10 +146,10 @@
             android:id="@+id/movieGenre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="@id/guideline3"
             app:layout_constraintStart_toStartOf="@id/guideline"
-            app:layout_constraintTop_toBottomOf="@id/moviePoster" />
+            app:layout_constraintTop_toBottomOf="@id/movieTagLine" />
 
         <TextView
             android:id="@+id/overView"
@@ -204,12 +205,14 @@
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/movieCast" />
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/recommendedMovies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="start"
+            android:textColor="@color/red_neon"
+            android:textSize="18sp"
             android:text="@string/recommended_movies"
             app:layout_constraintStart_toStartOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/separator2" />
@@ -223,7 +226,7 @@
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/recommendedMovies" />
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/similarMovies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

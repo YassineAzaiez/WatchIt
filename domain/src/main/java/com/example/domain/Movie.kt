@@ -30,7 +30,7 @@ import java.io.Serializable
     @Expose @SerializedName("poster_path") val posterPath: String? ="",
     @Expose @SerializedName("production_companies") val companies: List<Company> ?= emptyList(),
     @Expose @SerializedName("production_countries") val countries: List<Country>? = emptyList(),
-    @Expose @SerializedName("release_date") val releaseDate: String? = "",
+    @Expose @SerializedName("release_date") val releaseDate: String?,
     @Expose @SerializedName("revenue") val revenue: Long = 0L,
     @Expose @SerializedName("runtime") val runtime: Int ,
     @Expose @SerializedName("spoken_languages") val languages: List<com.example.domain.Language> ?= emptyList(),

@@ -2,10 +2,9 @@ package com.example.core.di.modules
 
 
 import android.content.Context
-import com.example.core.BuildConfig
 import com.example.core.BuildConfig.*
 import com.example.core.di.network.*
-import com.example.core.service.MovieDbService
+import com.example.core.service.MovieWebService
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.OkHttpClient
 import dagger.Module
@@ -68,8 +67,8 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMovieDbService(retrofit : Retrofit ) : MovieDbService{
-        return retrofit.create(MovieDbService :: class.java)
+    fun provideMovieDbService(retrofit : Retrofit ) : MovieWebService{
+        return retrofit.create(MovieWebService :: class.java)
     }
 
 }

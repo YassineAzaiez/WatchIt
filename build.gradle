@@ -14,6 +14,7 @@ buildscript {
         dagger2_version = "2.25.2"
         paging_version = "2.1.2"
         roomVersion = '2.2.1'
+        youtube_Api_version = '10.0.5'
             }
 
 

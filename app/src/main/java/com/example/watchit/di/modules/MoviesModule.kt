@@ -1,6 +1,6 @@
 package com.example.watchit.di.modules
 
-import com.example.core.service.MovieDbService
+import com.example.core.service.MovieWebService
 import com.example.core.service.MoviesDAO
 import com.example.data.dataSources.remote.MoviesDataSource
 import com.example.data.repositories.MoviesRepository
@@ -18,9 +18,9 @@ class MoviesModule {
 
     @MovieScope
     @Provides
-    fun provideMovieDataSource(movieDbService: MovieDbService) : MoviesDataSource {
+    fun provideMovieDataSource(movieWebService: MovieWebService) : MoviesDataSource {
         return MoviesDataSource(
-            movieDbService
+            movieWebService
         )
     }
 

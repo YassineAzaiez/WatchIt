@@ -4,7 +4,7 @@ import android.content.Context
 import com.example.core.di.modules.AppMoule
 import com.example.core.di.modules.NetworkModule
 import com.example.core.di.modules.StorageModule
-import com.example.core.service.MovieDbService
+import com.example.core.service.MovieWebService
 import com.example.core.service.MoviesDAO
 import com.example.core.utils.AppDataBase
 import dagger.Component
@@ -21,7 +21,7 @@ interface CoreComponent {
     fun getCash() : Cache
     fun getContext() : Context
     fun getRetrofit() : Retrofit
-    fun getMoviesService() : MovieDbService
+    fun getMoviesService() : MovieWebService
     fun getAppDb() : AppDataBase
     fun getMoviesDao() : MoviesDAO
 }

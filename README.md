@@ -2,7 +2,7 @@
 A simple modular kotlin app using the MVVM architectural pattern and some of android jetpack libraries
 this App is using [the movie database API](https://developers.themoviedb.org/3/getting-started/introduction).
 
-# Used Libraries
+## Used Libraries
 
 [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) : store and manage UI-related data in a lifecycle conscious way.
 [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) : notify the view when data changes.

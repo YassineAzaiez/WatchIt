@@ -17,7 +17,7 @@ import com.example.watchit.R
 import com.example.watchit.utils.Utils
 import com.example.watchit.adapters.MoviesAdapter
 import com.example.watchit.adapters.OnLoadListener
-import com.example.watchit.adapters.RecyclerViewLoadMoreScroll
+import com.example.watchit.adapters.EndlessRecyclerViewScrollListener
 import com.example.watchit.viewmodelFactory.MoviesViewModelFactory
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.snippet_search_toolbar.*
@@ -54,7 +54,6 @@ class SearchFragment : Fragment() , OnLoadListener{
         searchList.hasFixedSize()
         gridLayoutManager = GridLayoutManager(requireContext(),
             Utils.getColumnsNumber(requireActivity()))
-        searchList.addOnScrollListener(RecyclerViewLoadMoreScroll(gridLayoutManager,this))
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             moviesSearchToolbar.navigationIcon =
                 requireActivity().getDrawable(R.drawable.ic_arrow_back)

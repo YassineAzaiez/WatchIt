@@ -1,6 +1,7 @@
 package com.example.watchit.moviesFragment
 
 
+import com.example.watchit.adapters.EndlessRecyclerViewScrollListener
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,12 +18,11 @@ import com.example.domain.Movie
 import com.example.domain.Movie.Companion.TOP_RATED
 import com.example.watchit.MovieApplication
 import com.example.watchit.R
-import com.example.watchit.utils.Utils
 import com.example.watchit.adapters.MoviesAdapter
 import com.example.watchit.adapters.OnLoadListener
-import com.example.watchit.adapters.RecyclerViewLoadMoreScroll
 import com.example.watchit.movieDetails.MovieDetailActivity
 import com.example.watchit.moviesFragment.favorites.FavoritesFragment
+import com.example.watchit.utils.Utils
 import com.example.watchit.viewmodelFactory.MoviesViewModelFactory
 import kotlinx.android.synthetic.main.fragment_movies.*
 import java.util.*
@@ -38,7 +38,7 @@ class MoviesFragment : Fragment(), MovieLikedListener, OnLoadListener {
     private lateinit var moviesVm: MoviesViewModel
     private lateinit var moviesAdapter: MoviesAdapter
     private lateinit var list: String
-    private lateinit var mRecyclerViewLoadMoreScroll: RecyclerViewLoadMoreScroll
+    private lateinit var mRecyclerViewLoadMoreScroll: EndlessRecyclerViewScrollListener
     private var movieList: ArrayList<Movie> = ArrayList()
     private var likedMovieList = emptyList<LocalMovie>()
 
@@ -92,8 +92,8 @@ class MoviesFragment : Fragment(), MovieLikedListener, OnLoadListener {
     }
 
     override fun onMovieClicked(position: Int) {
-       val intent = Intent(activity,MovieDetailActivity::class.java)
-        intent.putExtra(EXTRA_ITEM,movieList[position])
+        val intent = Intent(activity, MovieDetailActivity::class.java)
+        intent.putExtra(EXTRA_ITEM, movieList[position])
         activity?.startActivity(intent)
     }
 
@@ -126,9 +126,17 @@ class MoviesFragment : Fragment(), MovieLikedListener, OnLoadListener {
     private fun initView() {
         gridLayoutManager =
             GridLayoutManager(requireContext(), Utils.getColumnsNumber(requireActivity()))
-        mRecyclerViewLoadMoreScroll = RecyclerViewLoadMoreScroll(gridLayoutManager, this)
+        mRecyclerViewLoadMoreScroll =
+            object : EndlessRecyclerViewScrollListener(gridLayoutManager) {
+                override fun onLoadMore(page: Int) {
+                    moviesVm.loadMovies(list, Locale.getDefault().language, page)
+                }
+
+            }
         moviesAdapter = MoviesAdapter(movieList)
+        MovieList.addOnScrollListener(mRecyclerViewLoadMoreScroll)
         MovieList.hasFixedSize()
+
         if (requireContext().isNetworkAvailabe()) {
             intiMoviesData()
             noInternet.visibility = View.GONE
@@ -191,7 +199,6 @@ class MoviesFragment : Fragment(), MovieLikedListener, OnLoadListener {
     }
 
 }
-
 
 
 
